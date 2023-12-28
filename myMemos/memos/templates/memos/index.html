@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Memos app</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            h1, h2 {
+                width: 100%;
+            }
+
+            table {
+                width: 100%;
+            }
+            th{
+                text-align: right;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                margin: 10px 0;
+            }
+
+            form {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center
+            }
+            .logout-btn{
+                margin-left: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1> My memos</h1>
+
+        <table>
+            <tr>
+                <thUsername:</th>
+                <td>{{user.username}}</td>
+            </tr>
+        </table>
+
+        <ul>
+            {% for m in memo%}
+            <li>{{m.memo}}</li>
+            {% endfor %}
+        </ul>
+
+
+        <h2>Add a new memo</h2>
+        <!--CSRF_token should be added here-->
+        <form action="add/" method="POST">
+            <!--{% csrf_token %}-->
+            <input type="text" name="memo"/>
+            <input type="submit" value="Post">
+        </form>
+
+        <form action="remove_oldest_memo/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Remove Oldest Memo"/>
+        </form>
+        
+
+        <form action="logout/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Logout"/>
+        </form>
+
+        <h2>Change Your Password</h2>
+        <form action="changepassword/" method="GET"> <!--Also needs to be changed to POST-->
+            <input type="hidden" name="user" value="{{user.username}}" />
+            <label for="password">New Password:</label>>
+            <input type="password" name="password" required/>
+            <br>
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" required />
+            {% if password_mismatch %}
+                <p style="color: red;">Passwords do not match.</p>
+            {% endif %}
+            <br>
+
+            <input type="submit" value="confirm"/>
+
+        </form>
+
+        <form action='admin_dashboard/' method="POST">
+            {% csrf_token %}
+            <input type="submit" value="admin page">
+            <!--<button type="button" value="admin page"checkAdmin()>Go to Admin Dashboard</button>-->
+        </form>
+        <!-- 
+        <script>
+            function checkAdmin(isAutenticated, isStaff) {
+                
+                if ( isAuthenticated && isStaff }}) {
+                    
+                    window.location.href = '/admin_dashboard/';
+                } else {
+                    
+                    alert('You do not have admin privileges.');
+                }
+            }
+        </script>
+        -->
+                
+
+    </body>
+</html>
+
