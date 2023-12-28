@@ -78,6 +78,7 @@
 
         <h2>Change Your Password</h2>
         <form action="changepassword/" method="GET"> <!--Also needs to be changed to POST-->
+            {% csrf_token %}
             <input type="hidden" name="user" value="{{user.username}}" />
             <label for="password">New Password:</label>>
             <input type="password" name="password" required/>
@@ -88,7 +89,6 @@
                 <p style="color: red;">Passwords do not match.</p>
             {% endif %}
             <br>
-
             <input type="submit" value="confirm"/>
 
         </form>
