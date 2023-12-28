@@ -16,16 +16,16 @@ from .models import  Memo
 #       confirm_password = forms.CharField(widget=forms.PasswordInput)
 # The for requires an entire rework of the changePassword function to work, let's just use
 # the simple solution and change to POST
-#@login_required
+@login_required
 def changePassword(request):
     if request.method == 'GET': # Change to 'POST'
 
-        user=User.objects.get(username=request.GET.get("user"))
-        password= request.GET.get('password') #Change to POST
-        confirm_new = request.GET.get('confirm-password')#Change to POST
+        user= request.user
+        password= request.GET.get('password') # change to POST
+        confirm_password = request.GET.get('confirm_password')#Change to POST
 
-        if password == confirm_new:
-            user.set_password(confirm_new)
+        if password == confirm_password:
+            user.set_password(confirm_password)
             user.save()
             return redirect("/")
         else:
