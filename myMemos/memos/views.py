@@ -48,7 +48,6 @@ def addMemo(request):
     owner_id = request.user.id
     cursor.execute("INSERT INTO memos_memo (memo, owner_id, created_at) VALUES (?,?, ?)", (text, owner_id, datetime.datetime.now()))
     conn.commit()
-    conn.close()
     return redirect("/")
 
 @login_required
